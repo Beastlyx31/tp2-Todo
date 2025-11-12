@@ -1,0 +1,62 @@
+# Dépendances PHP et Node.js
+/vendor/
+/node_modules/
+
+# Fichiers compilés par Vite.js
+/public/css/
+/public/js/
+
+# Répertoires de cache BaldeOne
+/ressources/cache/*.bladec
+
+# Fichiers d'environnement
+.env
+.env.local
+.env.production
+.env.staging
+
+# Spécifique à PHP
+composer.phar
+/vendor/
+
+# Spécifique à Vite
+.vite/
+dist/
+manifest.json
+
+# Fichiers IDE et éditeur
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Fichiers générés par le système
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Journaux
+*.log
+logs/
+error.log
+access.log
+
+# Fichiers temporaires
+*.tmp
+*.temp
+/tmp/
+
+# Fichiers de base de données
+*.sqlite
+*.db
+*.sql
+
+# Fichiers de sauvegarde
+*.bak
+*.backup
+
