@@ -1,4 +1,5 @@
 // frontend/src/hooks/useTasks.js
+import React from "react";
 
 export function useTasks() {
     const [tasks, setTasks] = React.useState([]);
@@ -8,13 +9,22 @@ export function useTasks() {
     // Charger toutes les tâches
     const loadTasks = React.useCallback(async () => {
         try {
-            setLoading(true);
-            // TODO: Appeler l'API pour récupérer les tâches
-            // TODO: Mettre à jour le state tasks
+            // TODO: Faire la requête GET pour récupérer le message
+            const response = await fetch(`http://localhost:8888/prog-specialisee/tp2_todo/api/tasks.php`)
+
+            if (!response.ok) {
+                if (response.status === 404) {
+                    throw new Error('NOT_FOUND')
+                }
+                throw new Error('Erreur lors de la récupération des tâches')
+            }
+
+            const data = await response.json()
+            setTasks(data)
         } catch (err) {
-            // TODO: Gérer l'erreur
+            setError(err.message)
         } finally {
-            setLoading(false);
+            setLoading(false)
         }
     }, []);
 
