@@ -9,7 +9,7 @@ function RouteComponent() {
   return (
     <>
       <h1>Ma liste de tâches</h1>
-      <TaskList message={'Coucou'}/>
+      <TaskList />
     </>
   );
 }

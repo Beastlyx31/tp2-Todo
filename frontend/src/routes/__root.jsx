@@ -8,11 +8,7 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <React.Fragment>
-      <nav style={{ 
-        padding: '20px', 
-        backgroundColor: '#333', 
-        color: 'white' 
-      }}>
+      <nav>
         <Link to="/" style={{ marginRight: '20px', color: 'white' }}>
           Tâches
         </Link>

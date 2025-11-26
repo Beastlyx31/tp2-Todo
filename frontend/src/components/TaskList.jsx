@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useTasks } from "../hooks/useTasks";
+import TaskItem from "../components/TaskItem";
 
 // tasks, onToggle, onEdit, onDelete
 function TaskList(props) {
@@ -7,10 +8,12 @@ function TaskList(props) {
 
     return (
         <>
-            <p>{props.message}</p>
             <ul>
                 {tasks.map((task) => (
-                    <li key={task.id}>{task.title}</li>
+                    <TaskItem key={task.id}
+                    titre={task.title}
+                    date={task.due_date}
+                    />
                 ))}
             </ul>
         </>
