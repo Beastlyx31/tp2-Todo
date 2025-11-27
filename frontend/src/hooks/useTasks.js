@@ -1,6 +1,19 @@
 // frontend/src/hooks/useTasks.js
 import React from "react";
 
+/**
+ * Formate une date au format YYYY-MM-DD en format lisible
+ * @param {string} dateString - Date au format YYYY-MM-DD
+ * @returns {string} Date formatée
+ */
+export function formatDate(dateString) {
+    if (!dateString) return '';
+
+    const date = new Date(dateString + 'T00:00:00'); // Ajouter l'heure pour éviter les problèmes de fuseau horaire
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString('fr-CA', options);
+}
+
 export function useTasks() {
     const [tasks, setTasks] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
@@ -30,29 +43,140 @@ export function useTasks() {
 
     // Ajouter une tâche
     const addTask = React.useCallback(async (title, dueDate) => {
-        // TODO: Valider les données
-        // TODO: Appeler l'API POST
-        // TODO: Rafraîchir la liste
+        // 1. Empêcher le rechargement de la page
+        event.preventDefault();
+
+        // 2. Récupérer les valeurs du formulaire
+        const refChampInput = document.querySelector('.todo-form__input');
+        const refChampDate = document.querySelector('.todo-form__date');
+        // let title;
+        // let dueDate;
+        dueDate = refChampDate.value;
+
+        // 3. Valider les données
+        if (refChampInput.value == '') {
+            alert('Le titre est requis');
+        } else {
+            title = refChampInput.value;
+        }
+
+        // 4. Préparer les données à envoyer
+        const taskData = {
+            title: title,
+            due_date: dueDate || null,
+            is_completed: false
+        };
+
+        try {
+            // 5. Envoyer la requête POST
+            const response = await fetch('api/tasks.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(taskData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Erreur lors de l\'ajout de la tâche');
+            }
+
+            // 6. Réinitialiser le formulaire
+            refChampInput.value = '';
+            refChampDate.value = '';
+
+            // 7. Recharger la liste des tâches (appeler la fonction loadTasks)
+            loadTasks();
+        } catch (error) {
+            console.error('Erreur:', error);
+            alert('Impossible d\'ajouter la tâche');
+        }
     }, []);
 
     // Modifier le statut d'une tâche
     const toggleTask = React.useCallback(async (taskId) => {
-        // TODO: Trouver la tâche actuelle
-        // TODO: Appeler l'API PUT avec le nouveau statut
-        // TODO: Mettre à jour le state
+        try {
+            // 1. Envoyer la requête PUT
+            const response = await fetch(`api/tasks.php?id=${taskId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    is_completed: currentStatus
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Erreur lors de la modification');
+            }
+
+            // 2. Recharger les tâches (appeler la fonction loadTasks)
+            loadTasks();
+        } catch (error) {
+            console.error('Erreur:', error);
+            alert('Impossible de modifier la tâche');
+        }
     }, [tasks]);
 
     // Modifier une tâche
     const editTask = React.useCallback(async (taskId, title, dueDate) => {
-        // TODO: Appeler l'API PUT
-        // TODO: Mettre à jour le state
+        const newTitle = prompt('Nouveau titre:', currentTitle);
+
+        if (newTitle === null || newTitle.trim() === '') {
+            return; // L'utilisateur a annulé
+        }
+
+        const newDate = prompt('Nouvelle date (YYYY-MM-DD):', currentDate || '');
+
+        try {
+            const response = await fetch(`api/tasks.php?id=${taskId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title: newTitle.trim(),
+                    due_date: newDate || null
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Erreur lors de la modification');
+            }
+
+            loadTasks();
+        } catch (error) {
+            console.error('Erreur:', error);
+            alert('Impossible de modifier la tâche');
+        }
     }, []);
 
     // Supprimer une tâche
     const deleteTask = React.useCallback(async (taskId) => {
-        // TODO: Demander confirmation
-        // TODO: Appeler l'API DELETE
-        // TODO: Mettre à jour le state
+        // 1. Demander confirmation avec la fonction JavaScript confirm
+    if(confirm('Voulez-vous supprimer la tâche ?')) {
+        try {
+            // 2. Envoyer la requête DELETE
+            const response = await fetch(`api/tasks.php?id=${taskId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: ''
+            });
+    
+            if (!response.ok) {
+                throw new Error('Erreur lors de la suppression');
+            }
+    
+            // 3. Recharger les tâches (appeler la fonction loadTasks)
+            loadTasks();
+        } catch (error) {
+            console.error('Erreur:', error);
+            alert('Impossible de supprimer la tâche');
+        }
+    }
     }, []);
 
     React.useEffect(() => {
