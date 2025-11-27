@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.17",
+    "@tanstack/react-router": "^1.136.15",
+    "chart.js": "^4.5.1",
+    "react-chartjs-2": "^5.3.1",
+    "tailwindcss": "^4.1.17"
+  },
+  "devDependencies": {
+    "@tanstack/react-devtools": "^0.8.1",
+    "@tanstack/react-router-devtools": "^1.136.15",
+    "@tanstack/router-plugin": "^1.136.15"
+  }
+}
