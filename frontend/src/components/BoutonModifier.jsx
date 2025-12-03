@@ -5,7 +5,7 @@ function BoutonModifier(props) {
 
     return (
         <>
-            <button onClick={editTask}>Modifier</button>
+            <button onClick={editTask} className="mx-5">Modifier</button>
         </>
     );
 }

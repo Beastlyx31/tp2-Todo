@@ -8,12 +8,21 @@ import BoutonModifier from "./BoutonModifier";
 function TaskItem(props) {
     return (
         <>
-            <div>
-                <input type="checkbox" name="" id="" />
-                <h2>{props.titre}</h2>
-                <p>{formatDate(props.date)}</p>
-                <BoutonModifier id={props.id} titre={props.title} date={props.title}/>
-                <BoutonSupprimer id={props.id}/>
+            <div className="flex flex-row border-2 border-black rounded-3xl p-7 m-5 justify-between">
+                <div className="flex flex-row">
+                    <input type="checkbox" name="" id="" className="mx-5" />
+                    <div className="flex flex-col">
+                        <h2>{props.titre}</h2>
+                        <p>{formatDate(props.date)}</p>
+                    </div>
+                </div>
+
+                <div className="flex flex-row">
+                    <div>
+                        <BoutonModifier id={props.id} titre={props.title} date={props.title} />
+                        <BoutonSupprimer id={props.id} />
+                    </div>
+                </div>
             </div>
         </>
     );
