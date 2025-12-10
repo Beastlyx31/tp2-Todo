@@ -163,7 +163,6 @@ export function useTasks() {
 
                 // 3. Recharger les tâches (appeler la fonction loadTasks)
                 loadTasks();
-                window.location.reload();
             } catch (error) {
                 console.error('Erreur:', error);
                 alert('Impossible de supprimer la tâche');

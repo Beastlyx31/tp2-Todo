@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import { useTasks } from "../hooks/useTasks";
 import { formatDate } from "../hooks/useTasks";
 import BoutonSupprimer from "./BoutonSupprimer";
 import BoutonModifier from "./BoutonModifier";
@@ -10,7 +8,9 @@ function TaskItem(props) {
         <>
             <div className="flex flex-row border-2 border-black rounded-3xl p-7 m-5 justify-between">
                 <div className="flex flex-row">
-                    <input type="checkbox" name="" id="" className="mx-5" />
+                    <input onToggle={e=>{
+                        props.onToggle(props.id);
+                    }} type="checkbox" name="" id="" className="mx-5" />
                     <div className="flex flex-col">
                         <h2 className={`font-bold ${false ? 'line-through' : ''}`}>{props.titre}</h2>
                         <p>{formatDate(props.date)}</p>
@@ -19,8 +19,8 @@ function TaskItem(props) {
 
                 <div className="flex flex-row">
                     <div>
-                        <BoutonModifier id={props.id} titre={props.titre} date={props.date} />
-                        <BoutonSupprimer id={props.id} />
+                        <BoutonModifier onEdit={props.onEdit} id={props.id} titre={props.titre} date={props.date} />
+                        <BoutonSupprimer onDelete={props.onDelete} id={props.id} />
                     </div>
                 </div>
             </div>

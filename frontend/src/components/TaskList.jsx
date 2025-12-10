@@ -10,6 +10,9 @@ function TaskList(props) {
                     id={task.id}
                     titre={task.title}
                     date={task.due_date}
+                    onDelete={props.onDelete}
+                    onEdit={props.onEdit}
+                    onToggle={props.onToggle}
                     />
                 ))}
             </ul>

@@ -12,6 +12,7 @@ function AjouterTache(props) {
                 <form onSubmit={e=>{
                         e.preventDefault();
                         props.onAdd(titre, date);
+                        setTitre('');
                     }}>
                     <input value={titre} onChange={e=>{setTitre(e.target.value)}} type="text" className="border-amber-950 border-2" />
                     <input value={date} onChange={e=>{setDate(e.target.value)}}  type="date" className="border-amber-950 border-2" />

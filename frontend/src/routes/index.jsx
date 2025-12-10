@@ -8,12 +8,13 @@ export const Route = createFileRoute('/')({
 })
 
 function RouteComponent() {
-  const { tasks, addTask } = useTasks();
+  const { tasks, addTask, deleteTask, editTask, toggleTask } = useTasks();
+  
   return (
     <>
       <h1 className='text-3xl text-center font-mono'>Ma liste de tâches</h1>
       <AjouterTache onAdd={addTask} />
-      <TaskList tasks={tasks} message={'Coucou'}/>
+      <TaskList onToggle={toggleTask} onDelete={deleteTask} onEdit={editTask} tasks={tasks} message={'Coucou'}/>
     </>
   );
 }
