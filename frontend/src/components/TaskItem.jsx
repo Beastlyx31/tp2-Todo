@@ -19,7 +19,7 @@ function TaskItem(props) {
 
                 <div className="flex flex-row">
                     <div>
-                        <BoutonModifier id={props.id} titre={props.title} date={props.title} />
+                        <BoutonModifier id={props.id} titre={props.titre} date={props.date} />
                         <BoutonSupprimer id={props.id} />
                     </div>
                 </div>

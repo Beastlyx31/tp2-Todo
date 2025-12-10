@@ -1,11 +1,13 @@
 import { useTasks } from "../hooks/useTasks";
 
-function BoutonSupprimer() {
+function BoutonSupprimer(props) {
     const { deleteTask } = useTasks();
 
     return (
         <>
-            <button onClick={() => deleteTask(id)}>Supprimer</button>
+            <button onClick={(e) => {
+                deleteTask(props.id);
+            }}>Supprimer</button>
         </>
     );
 }

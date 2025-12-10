@@ -1,5 +1,6 @@
 // frontend/src/hooks/useTasks.js
 import React from "react";
+import { useRouter } from '@tanstack/react-router';
 
 /**
  * Formate une date au format YYYY-MM-DD en format lisible
@@ -22,7 +23,6 @@ export function useTasks() {
     // Charger toutes les tâches
     const loadTasks = React.useCallback(async () => {
         try {
-            // TODO: Faire la requête GET pour récupérer le message
             const response = await fetch(`http://localhost:8888/prog-specialisee/tp2_todo/api/tasks.php`)
 
             if (!response.ok) {
@@ -121,23 +121,19 @@ export function useTasks() {
 
     // Modifier une tâche
     const editTask = React.useCallback(async (taskId, title, dueDate) => {
-        const newTitle = prompt('Nouveau titre:', currentTitle);
-
-        if (newTitle === null || newTitle.trim() === '') {
+        if (title === null || title.trim() === '') {
             return; // L'utilisateur a annulé
         }
 
-        const newDate = prompt('Nouvelle date (YYYY-MM-DD):', currentDate || '');
-
         try {
-            const response = await fetch(`api/tasks.php?id=${taskId}`, {
+            const response = await fetch(`http://localhost:8888/prog-specialisee/tp2_todo/api/tasks.php?id=${taskId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    title: newTitle.trim(),
-                    due_date: newDate || null
+                    title: title.trim(),
+                    due_date: dueDate || null
                 })
             });
 
@@ -145,7 +141,8 @@ export function useTasks() {
                 throw new Error('Erreur lors de la modification');
             }
 
-            loadTasks();
+            await loadTasks();
+            window.location.reload();
         } catch (error) {
             console.error('Erreur:', error);
             alert('Impossible de modifier la tâche');
@@ -155,28 +152,29 @@ export function useTasks() {
     // Supprimer une tâche
     const deleteTask = React.useCallback(async (taskId) => {
         // 1. Demander confirmation avec la fonction JavaScript confirm
-    if(confirm('Voulez-vous supprimer la tâche ?')) {
-        try {
-            // 2. Envoyer la requête DELETE
-            const response = await fetch(`api/tasks.php?id=${taskId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: ''
-            });
-    
-            if (!response.ok) {
-                throw new Error('Erreur lors de la suppression');
+        if (confirm('Voulez-vous supprimer la tâche ?')) {
+            try {
+                // 2. Envoyer la requête DELETE
+                const response = await fetch(`http://localhost:8888/prog-specialisee/tp2_todo/api/tasks.php?id=${taskId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: ''
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erreur lors de la suppression');
+                }
+
+                // 3. Recharger les tâches (appeler la fonction loadTasks)
+                loadTasks();
+                window.location.reload();
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Impossible de supprimer la tâche');
             }
-    
-            // 3. Recharger les tâches (appeler la fonction loadTasks)
-            loadTasks();
-        } catch (error) {
-            console.error('Erreur:', error);
-            alert('Impossible de supprimer la tâche');
         }
-    }
     }, []);
 
     React.useEffect(() => {
