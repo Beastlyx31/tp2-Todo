@@ -5,7 +5,7 @@ function BoutonModifier(props) {
 
     return (
         <>
-            <button onClick={editTask} className="mx-5">Modifier</button>
+            <button onClick={editTask} className="mx-5 bg-cyan-600 p-2 rounded-sm text-white hover:bg-cyan-800 hover:transition">Modifier</button>
         </>
     );
 }

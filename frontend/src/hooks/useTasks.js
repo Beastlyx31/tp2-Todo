@@ -42,28 +42,24 @@ export function useTasks() {
     }, []);
 
     // Ajouter une tâche
-    const addTask = React.useCallback(async (title, dueDate) => {
+    const addTask = React.useCallback(async (titre, date) => {
         // 1. Empêcher le rechargement de la page
-        event.preventDefault();
+        // event.preventDefault();
 
         // 2. Récupérer les valeurs du formulaire
-        const refChampInput = document.querySelector('.todo-form__input');
-        const refChampDate = document.querySelector('.todo-form__date');
-        // let title;
-        // let dueDate;
-        dueDate = refChampDate.value;
+        // const [titre, setTitre] = React.useState("");
+        // const [date, setDate] = React.useState("");
 
         // 3. Valider les données
-        if (refChampInput.value == '') {
+        if (titre == '') {
             alert('Le titre est requis');
-        } else {
-            title = refChampInput.value;
+            return
         }
 
         // 4. Préparer les données à envoyer
         const taskData = {
-            title: title,
-            due_date: dueDate || null,
+            title: titre,
+            due_date: date || null,
             is_completed: false
         };
 
@@ -82,8 +78,8 @@ export function useTasks() {
             }
 
             // 6. Réinitialiser le formulaire
-            refChampInput.value = '';
-            refChampDate.value = '';
+            // setTitre("");
+            // setDate("");
 
             // 7. Recharger la liste des tâches (appeler la fonction loadTasks)
             loadTasks();
@@ -155,28 +151,28 @@ export function useTasks() {
     // Supprimer une tâche
     const deleteTask = React.useCallback(async (taskId) => {
         // 1. Demander confirmation avec la fonction JavaScript confirm
-    if(confirm('Voulez-vous supprimer la tâche ?')) {
-        try {
-            // 2. Envoyer la requête DELETE
-            const response = await fetch(`api/tasks.php?id=${taskId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: ''
-            });
-    
-            if (!response.ok) {
-                throw new Error('Erreur lors de la suppression');
+        if (confirm('Voulez-vous supprimer la tâche ?')) {
+            try {
+                // 2. Envoyer la requête DELETE
+                const response = await fetch(`api/tasks.php?id=${taskId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: ''
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erreur lors de la suppression');
+                }
+
+                // 3. Recharger les tâches (appeler la fonction loadTasks)
+                loadTasks();
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Impossible de supprimer la tâche');
             }
-    
-            // 3. Recharger les tâches (appeler la fonction loadTasks)
-            loadTasks();
-        } catch (error) {
-            console.error('Erreur:', error);
-            alert('Impossible de supprimer la tâche');
         }
-    }
     }, []);
 
     React.useEffect(() => {
