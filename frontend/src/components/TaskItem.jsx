@@ -12,7 +12,7 @@ function TaskItem(props) {
                 <div className="flex flex-row">
                     <input type="checkbox" name="" id="" className="mx-5" />
                     <div className="flex flex-col">
-                        <h2>{props.titre}</h2>
+                        <h2 className={`font-bold ${false ? 'line-through' : ''}`}>{props.titre}</h2>
                         <p>{formatDate(props.date)}</p>
                     </div>
                 </div>
