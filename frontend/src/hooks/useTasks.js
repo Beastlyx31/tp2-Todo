@@ -8,7 +8,7 @@ import { useRouter } from '@tanstack/react-router';
  * @returns {string} Date formatée
  */
 export function formatDate(dateString) {
-    if (!dateString) return '';
+    if (!dateString) return "Aucune date d'échéance";
 
     const date = new Date(dateString + 'T00:00:00'); // Ajouter l'heure pour éviter les problèmes de fuseau horaire
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -114,6 +114,8 @@ export function useTasks() {
         if (title === null || title.trim() === '') {
             return; // L'utilisateur a annulé
         }
+
+        console.log('gghghhh', { title, dueDate });
 
         if(dueDate == '') {
             dueDate = null;

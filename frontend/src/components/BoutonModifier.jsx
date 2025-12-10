@@ -10,7 +10,7 @@ function BoutonModifier(props) {
                 const newDate = prompt('Nouvelle date (YYYY-MM-DD):', props.date || '');
 
                 props.onEdit(props.id, newTitle, newDate);
-            }} className="mx-5 bg-cyan-600 p-2 rounded-sm text-white hover:bg-cyan-800 hover:transition">Modifier</button>
+            }} className="mx-5 bg-cyan-600 py-3 px-5 rounded-sm text-white hover:bg-cyan-400 hover:transition">Modifier</button>
         </>
     );
 }

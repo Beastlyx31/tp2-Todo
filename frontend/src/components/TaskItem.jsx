@@ -6,7 +6,7 @@ import BoutonModifier from "./BoutonModifier";
 function TaskItem(props) {
     return (
         <>
-            <div className="flex flex-row border-2 border-black rounded-3xl p-7 m-5 justify-between">
+            <div className="flex flex-row border-2 border-black rounded-2xl p-7 m-5 justify-between">
                 <div className="flex flex-row">
                     <input onToggle={e=>{
                         props.onToggle(props.id);

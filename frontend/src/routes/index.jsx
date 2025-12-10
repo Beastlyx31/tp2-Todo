@@ -12,9 +12,13 @@ function RouteComponent() {
   
   return (
     <>
-      <h1 className='text-3xl text-center font-mono'>Ma liste de tâches</h1>
-      <AjouterTache onAdd={addTask} />
-      <TaskList onToggle={toggleTask} onDelete={deleteTask} onEdit={editTask} tasks={tasks} message={'Coucou'}/>
+      <h1 className='text-3xl text-center font-sans p-10 bg-slate-900 text-white'>Ma liste de tâches</h1>
+      <div className='border-b-2 border-gray-300'>
+        <AjouterTache onAdd={addTask} />
+      </div>
+      <div className='max-w-[70%] mx-auto'>
+        <TaskList onToggle={toggleTask} onDelete={deleteTask} onEdit={editTask} tasks={tasks} message={'Coucou'} />
+      </div>
     </>
   );
 }

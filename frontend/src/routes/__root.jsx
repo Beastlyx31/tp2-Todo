@@ -8,11 +8,11 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <React.Fragment>
-      <nav className='bg-cyan-600 py-10'>
-        <Link to="/" className='text-black px-4 py-10  hover:bg-cyan-200' >
+      <nav className='bg-cyan-600 flex justify-center'>
+        <Link to="/" className='text-black px-4 py-10  hover:bg-cyan-200 mr-20 font-bold' >
           Tâches
         </Link>
-        <Link to="/statistiques" className='text-black px-4 py-10  hover:bg-cyan-200'>
+        <Link to="/statistiques" className='text-black px-4 py-10  hover:bg-cyan-200 font-bold'>
           Statistiques
         </Link>
       </nav>
