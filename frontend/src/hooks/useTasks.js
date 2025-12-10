@@ -43,20 +43,18 @@ export function useTasks() {
 
     // Ajouter une tâche
     const addTask = React.useCallback(async (titre, date) => {
-        // 1. Empêcher le rechargement de la page
-        // event.preventDefault();
+    
 
-        // 2. Récupérer les valeurs du formulaire
-        // const [titre, setTitre] = React.useState("");
-        // const [date, setDate] = React.useState("");
-
-        // 3. Valider les données
+        // 1. Valider les données
         if (titre == '') {
             alert('Le titre est requis');
             return
         }
+        if(!date){
+            date = null;
+        }
 
-        // 4. Préparer les données à envoyer
+        // 2. Préparer les données à envoyer
         const taskData = {
             title: titre,
             due_date: date || null,
@@ -64,8 +62,8 @@ export function useTasks() {
         };
 
         try {
-            // 5. Envoyer la requête POST
-            const response = await fetch('api/tasks.php', {
+            // 3. Envoyer la requête POST
+            const response = await fetch(`http://localhost:8888/prog-specialisee/tp2_todo/api/tasks.php`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -77,11 +75,7 @@ export function useTasks() {
                 throw new Error('Erreur lors de l\'ajout de la tâche');
             }
 
-            // 6. Réinitialiser le formulaire
-            // setTitre("");
-            // setDate("");
-
-            // 7. Recharger la liste des tâches (appeler la fonction loadTasks)
+            // 4. Recharger la liste des tâches (appeler la fonction loadTasks)
             loadTasks();
         } catch (error) {
             console.error('Erreur:', error);
