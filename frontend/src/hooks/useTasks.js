@@ -84,9 +84,13 @@ export function useTasks() {
     }, []);
 
     // Modifier le statut d'une tâche
-    const toggleTask = React.useCallback(async (taskId) => {
+    const toggleTask = React.useCallback(async (taskId, currentStatus) => {
+
+        
         try {
             // 1. Envoyer la requête PUT
+            console.log("ICI")
+            console.log(taskId);
             const response = await fetch(`http://localhost:8888/prog-specialisee/tp2_todo/api/tasks.php?id=${taskId}`, {
                 method: 'PUT',
                 headers: {
@@ -115,6 +119,10 @@ export function useTasks() {
             return; // L'utilisateur a annulé
         }
 
+        if(dueDate == '') {
+            dueDate = null;
+        }
+
         try {
             const response = await fetch(`http://localhost:8888/prog-specialisee/tp2_todo/api/tasks.php?id=${taskId}`, {
                 method: 'PUT',
@@ -132,7 +140,7 @@ export function useTasks() {
             }
 
             await loadTasks();
-            window.location.reload();
+            // window.location.reload();
         } catch (error) {
             console.error('Erreur:', error);
             alert('Impossible de modifier la tâche');
@@ -159,7 +167,6 @@ export function useTasks() {
 
                 // 3. Recharger les tâches (appeler la fonction loadTasks)
                 loadTasks();
-                window.location.reload();
             } catch (error) {
                 console.error('Erreur:', error);
                 alert('Impossible de supprimer la tâche');
