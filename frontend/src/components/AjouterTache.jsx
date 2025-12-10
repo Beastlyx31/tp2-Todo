@@ -8,7 +8,7 @@ function AjouterTache(props) {
     const [date, setDate] = useState('');
     return (
         <>
-            <div className="p-5 max-w-[70%] mx-auto">
+            <div className="p-10 max-w-[70%] mx-auto">
                 <form className="flex justify-around" onSubmit={e=>{
                         e.preventDefault();
                         props.onAdd(titre, date);
