@@ -84,10 +84,14 @@ export function useTasks() {
     }, []);
 
     // Modifier le statut d'une tâche
-    const toggleTask = React.useCallback(async (taskId) => {
+    const toggleTask = React.useCallback(async (taskId, currentStatus) => {
+
+        
         try {
             // 1. Envoyer la requête PUT
-            const response = await fetch(`api/tasks.php?id=${taskId}`, {
+            console.log("ICI")
+            console.log(taskId);
+            const response = await fetch(`http://localhost:8888/prog-specialisee/tp2_todo/api/tasks.php?id=${taskId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
