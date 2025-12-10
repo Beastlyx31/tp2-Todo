@@ -121,6 +121,10 @@ export function useTasks() {
             return; // L'utilisateur a annulé
         }
 
+        if(dueDate == '') {
+            dueDate = null;
+        }
+
         try {
             const response = await fetch(`http://localhost:8888/prog-specialisee/tp2_todo/api/tasks.php?id=${taskId}`, {
                 method: 'PUT',
@@ -138,7 +142,7 @@ export function useTasks() {
             }
 
             await loadTasks();
-            window.location.reload();
+            // window.location.reload();
         } catch (error) {
             console.error('Erreur:', error);
             alert('Impossible de modifier la tâche');
