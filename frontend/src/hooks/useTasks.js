@@ -87,7 +87,7 @@ export function useTasks() {
     const toggleTask = React.useCallback(async (taskId) => {
         try {
             // 1. Envoyer la requête PUT
-            const response = await fetch(`api/tasks.php?id=${taskId}`, {
+            const response = await fetch(`http://localhost:8888/prog-specialisee/tp2_todo/api/tasks.php?id=${taskId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
