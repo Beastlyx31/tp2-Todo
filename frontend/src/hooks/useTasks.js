@@ -16,6 +16,7 @@ export function formatDate(dateString) {
 }
 
 export function useTasks() {
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
     const [tasks, setTasks] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
     const [error, setError] = React.useState(null);
@@ -23,7 +24,7 @@ export function useTasks() {
     // Charger toutes les tâches
     const loadTasks = React.useCallback(async () => {
         try {
-            const response = await fetch(`http://localhost:8888/prog-specialisee/tp2_todo/api/tasks.php`)
+            const response = await fetch(`${API_URL}/tasks.php`);
 
             if (!response.ok) {
                 if (response.status === 404) {
@@ -63,7 +64,7 @@ export function useTasks() {
 
         try {
             // 3. Envoyer la requête POST
-            const response = await fetch(`http://localhost:8888/prog-specialisee/tp2_todo/api/tasks.php`, {
+            const response = await fetch((`${API_URL}/tasks.php`), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -91,7 +92,7 @@ export function useTasks() {
             // 1. Envoyer la requête PUT
             console.log("ICI")
             console.log(taskId);
-            const response = await fetch(`http://localhost:8888/prog-specialisee/tp2_todo/api/tasks.php?id=${taskId}`, {
+            const response = await fetch((`${API_URL}/tasks.php?id=${taskId}`), {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -126,7 +127,7 @@ export function useTasks() {
         }
 
         try {
-            const response = await fetch(`http://localhost:8888/prog-specialisee/tp2_todo/api/tasks.php?id=${taskId}`, {
+            const response = await fetch((`${API_URL}/tasks.php?id=${taskId}`), {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -155,7 +156,7 @@ export function useTasks() {
         if (confirm('Voulez-vous supprimer la tâche ?')) {
             try {
                 // 2. Envoyer la requête DELETE
-                const response = await fetch(`http://localhost:8888/prog-specialisee/tp2_todo/api/tasks.php?id=${taskId}`, {
+                const response = await fetch((`${API_URL}/tasks.php?id=${taskId}`), {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json'
