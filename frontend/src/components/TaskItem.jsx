@@ -5,16 +5,16 @@ import { useState } from "react";
 
 // tasks, onToggle, onEdit, onDelete
 function TaskItem(props) {
-    const [status, setStatus] = useState(props.status)
-    const handleChange = () => {
-        setStatus(!status);
-        props.onToggle(props.id, status);
+    // const [status, setStatus] = useState(props.status)
+    const handleChange = (e) => {
+        // setStatus(!status);
+        props.onToggle(props.id, props.status == 1 ? 0 : 1);
     }
     return (
         <>
             <div className="flex flex-row border-2 border-black rounded-2xl p-7 m-5 justify-between">
                 <div className="flex flex-row">
-                    <input onChange={handleChange} checked={status === 1 ? true : false} type="checkbox" className="mx-5" />
+                    <input onChange={handleChange} checked={props.status} type="checkbox" className="mx-5" />
                     <div className="flex flex-col">
                         <h2 className={`font-bold ${props.status ? 'line-through' : ''}`}>{props.titre}</h2>
                         <p>{formatDate(props.date)}</p>
